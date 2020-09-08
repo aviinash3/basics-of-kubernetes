@@ -1,0 +1,228 @@
+kubernates architecture
+
+nodes (minions) > physycal or virtual machine with running containers.
+
+
+
+components of kubernates:
+
+api >>
+
+kubelet>>
+
+etcd > manage and store the all key components of kube cluster
+
+container runtime>> running actual container
+
+controller>> controll all nodes
+
+scheduler.>>
+
+
+
+
+masternode 						workernodes
+kube_API_server------------- 	kubelet
+etcd
+control manager
+scheduler
+
+
+#######
+kubectl
+
+kubectl get nodes >>> to know all nodes
+kubectl cluster-info >> to know about cluster-info
+kubectl get nodes -o wide >>> detailed info about container like os etc.
+
+
+
+
+
+
+
+##############################################
+setting up minicube for practice
+
+
+Follow the official document for  setting up minicube
+
+minikube status
+minikube start --driver=kvm2 >>> to launch minicube in kvm 
+ 
+virsh list --all >> view all vms running in kvm
+
+ minikube delete >> to delete minicube VM
+
+minikube start --driver=kvm2
+minikube status
+
+crate and run some containers.
+
+   kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
+    kubectl expose deployment hello-minikube --type=NodePort --port=8080 >> expose on specific port to view on browser
+   kubectl get pod >> to get the status of running pods
+
+ minikube service hello-minikube --url >>> get the url and port on which service is running.
+
+
+ kubectl delete services hello-minikube >> delete service
+ kubectl delete deployment hello-minikube >> delete the deployment.
+
+
+
+ ###################################
+ pods 
+ container +helper container >> helper container helps in data processing and user exicution tasks in container. when container deleted or died the helpper container also died automatically.
+
+ scale up  >> add pods not container
+ scale down >> delete pods not container
+############################
+
+ docker container
+ docker run  app_name >>>(  run this command multiple time to run multiple container in docker)
+docker run helper -link app1  >>>to run helper container in docker with container app.
+docker run helper -link app2 
+
+
+
+
+
+
+####################
+pods wth yaml
+
+kubectl get pods
+
+vim pod_testing.yaml
+
+kubectl create -f pod_testing.yml
+
+#################################
+replicas and replicaset
+
+
+vim replication.yaml 
+ 
+ vim replication.yaml 
+
+ kubectl create -f replication.yaml 
+
+ vim replication.yaml 
+
+ vim pod_testing.yml 
+
+
+ vim replication.yaml 
+
+ kubectl create -f replication.yaml 
+
+ kubectl replace -f replicaset.yaml 
+
+ kubectl get pods
+
+
+
+ #######
+ scaleup replicas
+
+ kubectl scale --replicas=5 -f replicaset.yaml 
+
+ kubectl get pods
+
+
+
+ kubectl scale --replicas=6 replicaset myapp-replicaset
+
+
+############
+kubectl scale replicaset myapp-replicaset --replicas=2 >>> scale down replicaset
+
+
+###################
+kubectl edit replicaset myapp-replicaset >>> to edit in running environment of replicaset. after saving the file  changes will automatically applied.
+
+
+
+
+
+####################
+deployments 
+
+
+
+
+##########################
+rollback and update
+kubectl edit deployment myapp-deployment >>> update the deployment in production.
+
+kubectl rollout status deployment/myapp-deployment >>> status of rollback
+
+kubectl rollout status deployment/myapp-deployment --record >>> to create records and store.
+kubectl rollout history deployment/myapp-deployment >>> list all the rollout 
+
+##########################
+return to older  version
+
+kubectl rollout undo deployment/myapp-deployment >>> return to the previous version 
+
+
+##################
+
+Networking
+
+
+
+
+
+
+##############################
+
+ kubectl get pods,svc  >>>check status of multiple component with comma seperate.
+ kubectl get deployment,svc
+
+
+ kubectl get pods,svc
+   kubectl get pods
+   kubectl create -f voting-app-deploy.yaml 
+ kubectl get pods
+ vim voting-app-deploy.yaml 
+  kubectl create -f voting-app-deploy.yaml 
+ vim voting-app-deploy.yaml 
+  kubectl create -f voting-app-deploy.yaml 
+
+ vim voting-app-deploy.yaml 
+ kubectl create -f voting-app-deploy.yaml 
+ kubectl create -f result-deployment.yaml 
+ cat result-
+ cat result-deployment.yaml 
+ vim voting-app-deploy.yaml 
+kubectl create -f voting-app-deploy.yaml 
+ kubectl create -f voting-app-service.yaml 
+ kubectl get deployment
+ kubectl create -f redis-deployment.yaml 
+ kubectl create -f redis-service.yaml 
+kubectl create -f  postgres-deployment.yaml 
+kubectl create -f  postgres-service.yaml 
+ kubectl create -f  worker
+ kubectl get pods,svc
+ kubectl get deployment,svc
+ minikube service result-service --url
+  kubectl create -f result-app-service.yaml 
+ 
+minikube service result-service --url
+minikube service voting-service --url
+  kubectl get deployments voting-app-deploy
+  kubectl scale deployment voting-app-deploy --replicas=4
+kubectl get deployments voting-app-deploy
+ kubectl get deployments 
+ kubectl describe  deployments 
+ kubectl describe  deployments voting-deployment
+  kubectl describe  deployments voting-app-deploy
+  kubectl get deployments 
+  kubectl get deployments  voting-app-deploy
+ 
+ kubectl get deployment,svc
+ minikube service voting-service --url
+
+
