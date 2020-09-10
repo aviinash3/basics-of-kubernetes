@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+
+spec:
+ containers:
+   - name: 
+     image:
+ affinity:
+   nodeAffinity:
+     requiredDuringSchedulingIgnoreDuringExecution:
+       nodeSelectorTerm:
+         - matchExpressions:
+             - key: size
+               operator: In
+               value:
+                 - Large
+                 - meadium
+#another condition
+#for note in
+#             - key: size
+#               operator: NotIn
+#               value:
+#                 - small
+                 
